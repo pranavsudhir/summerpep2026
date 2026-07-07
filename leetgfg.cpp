@@ -91,11 +91,57 @@ public:
 };
 
 
-//minimum size subarray sum
+//intersection point of 2 LL
 
-class Solution{
-    public:
-    int minSubarray(int target,vector<int> &nums){
-        
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *tempa = headA;
+        ListNode *tempb = headB;
+        while (tempa != tempb) {
+            if (tempa==NULL)
+                tempa=headB;
+            else
+                tempa=tempa->next;
+
+            if (tempb==NULL)
+                tempb=headA;
+            else
+                tempb=tempb->next;
+        }
+        return tempa;
     }
-}
+};
+
+//CHECK CYCLE IN LL
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while (fast!=NULL && fast->next!=NULL) {
+            slow = slow->next;
+            fast = fast->next->next;   
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+};

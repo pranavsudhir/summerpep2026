@@ -1,103 +1,147 @@
+// // #include<iostream>
+// // using namespace std;
+// // class node{
+// //     public:
+// //     int data;
+// //     Node *next;
+
+// //     Node(int val){
+// //         data=val;
+// //         next=NULL;
+// //     }
+// // };
+// // void insertatend(Node* &head,int val){
+// //     Node* n=new Node(val);
+// //     if(head==NULL){
+// //         head=node;
+// //         return;
+// //     }
+// //     Node* temp=head;
+// //     while(temp->next!=NULL){
+// //         temp=temp->next;
+// //     }
+// //     temp->next=n;
+// // }
+// // int main(){
+// //     Node *head=NULL;
+// //     insertatend(head,1);
+// //     insertatend(head,2);
+// //     insertatend(head,3);
+// // }
+
 // #include<iostream>
 // using namespace std;
-// class node{
+
+// class Node{
 //     public:
 //     int data;
 //     Node *next;
 
 //     Node(int val){
-//         data=val;
-//         next=NULL;
+//         data = val;
+//         next = NULL;
 //     }
 // };
-// void insertatend(Node* &head,int val){
-//     Node* n=new Node(val);
-//     if(head==NULL){
-//         head=node;
+
+// void insertAtBeginning(Node* &head, int val){
+//     Node* newNode = new Node(val);
+//     newNode->next = head;
+//     head = newNode;
+// }
+
+// void insertAtEnd(Node* &head, int val){
+//     Node* newNode = new Node(val);
+//     if(head == NULL){
+//         head = newNode;
 //         return;
 //     }
+//     Node* temp = head;
+//     while(temp->next != NULL){
+//         temp = temp->next;
+//     }
+//     temp->next = newNode;
+// }
+
+// void printList(Node* head){
+//     Node* temp = head;
+//     while(temp != NULL){
+//         cout << temp->data << " ";
+//         temp = temp->next;
+//     }
+//     cout << endl;
+// }
+// void printeven(Node* head){
 //     Node* temp=head;
-//     while(temp->next!=NULL){
+//     while(temp != NULL){
+//         if(temp->data %2 ==0){
+//             cout<<temp->data;
+//         }
+//         temp = temp->next;
+//     }
+// }
+// void insertatpos(Node* &head,int pos,int val){
+//     Node* node=new Node(val);
+//     Node* temp=head;
+//     if(pos==1){
+//         node->next=head;
+//         head=node;
+//         return;                         
+//     }
+//     for(int i=1;i<pos-1 && temp !=NULL;i++){
 //         temp=temp->next;
 //     }
-//     temp->next=n;
+//     node->next=temp->next;
+//     temp->next=node;
 // }
 // int main(){
-//     Node *head=NULL;
-//     insertatend(head,1);
-//     insertatend(head,2);
-//     insertatend(head,3);
-// }
+//     Node *head = NULL;
+//     insertAtEnd(head, 1);
+//     insertAtEnd(head, 2);
+//     insertAtEnd(head, 3);
+//     printList(head);
+//     return 0;
+// }    
 
+//deletion
 #include<iostream>
 using namespace std;
-
 class Node{
     public:
     int data;
     Node *next;
-
     Node(int val){
-        data = val;
-        next = NULL;
+        data=val;
+        next=NULL;
     }
-};
-
-void insertAtBeginning(Node* &head, int val){
-    Node* newNode = new Node(val);
-    newNode->next = head;
-    head = newNode;
-}
-
-void insertAtEnd(Node* &head, int val){
-    Node* newNode = new Node(val);
-    if(head == NULL){
-        head = newNode;
-        return;
-    }
-    Node* temp = head;
-    while(temp->next != NULL){
-        temp = temp->next;
-    }
-    temp->next = newNode;
-}
-
-void printList(Node* head){
-    Node* temp = head;
-    while(temp != NULL){
-        cout << temp->data << " ";
-        temp = temp->next;
-    }
-    cout << endl;
-}
-void printeven(Node* head){
-    Node* temp=head;
-    while(temp != NULL){
-        if(temp->data %2 ==0){
-            cout<<temp->data;
+    void deleteatend(Node* &head){
+        Node* temp=head;
+        if(head=NULL){
+            return;
         }
-        temp = temp->next;
+        if(head->next==NULL){
+            delete head;
+            head=NULL;
+            return;
+        }
+        while(temp->next->next!=NULL){
+            temp=temp->next;
+        }
+        delete temp->next;
+        temp->next=NULL;
+    }
+    void deleteatpos(Node* &head,int pos){
+        Node* temp=head;
+        if(pos==1){
+            Node* temp=head;
+            head=head->next;
+            delete temp;
+            return;
+        }
+        for(int i=0;i<pos-1 && temp!=NULL;i++){
+            temp=temp->next;
+        }
+        node* todel=temp->next;
+        temp->next=temp->next->next;
+        delete todel;
     }
 }
-void insertatpos(Node* &head,int pos,int val){
-    Node* node=new Node(val);
-    Node* temp=head;
-    if(pos==1){
-        node->next=head;
-        head=node;
-        return;                         
-    }
-    for(int i=1;i<pos-1 && temp !=NULL;i++){
-        temp=temp->next;
-    }
-    node->next=temp->next;
-    temp->next=node;
-}
-int main(){
-    Node *head = NULL;
-    insertAtEnd(head, 1);
-    insertAtEnd(head, 2);
-    insertAtEnd(head, 3);
-    printList(head);
-    return 0;
-}    
