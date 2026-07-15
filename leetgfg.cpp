@@ -145,3 +145,72 @@ public:
         return false;
     }
 };
+
+//remove nth node from end of Llist
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* t1 = head;
+        ListNode* t2 = head;
+        for (int i = 0; i < n; i++) {
+            t2 = t2->next;
+        }
+        if (t2 == NULL)
+            return head->next;
+        while (t2->next != NULL) {
+            t1 = t1->next;
+            t2 = t2->next;
+        }
+        ListNode* toDelete = t1->next;
+        t1->next = t1->next->next;
+        delete toDelete;
+        return head;
+    }
+};
+
+//reverse node in k group
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* temp = head;
+        int count = 0;
+
+        while (temp != NULL && count < k) {
+            temp = temp->next;
+            count++;
+        }
+
+        if (count == k) {
+            ListNode* prevNode = NULL;
+            ListNode* currNode = head;
+            ListNode* nextNode = NULL;
+
+            int count2 = 0;
+            while (count2 < k) {
+                nextNode = currNode->next;
+                currNode->next = prevNode;
+                prevNode = currNode;
+                currNode = nextNode;
+                count2++;
+            }
+
+            head->next = reverseKGroup(temp, k);
+            return prevNode;
+        }
+
+        return head;
+    }
+};
+
+//
